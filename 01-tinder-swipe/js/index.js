@@ -1,5 +1,5 @@
 let isAnimation = false
-const DECISION_THRESHOLD = 75
+const DECISION_THRESHOLD = 100
 let deltaX = 0
 
 const handleStartSwipe = event => {
@@ -17,15 +17,16 @@ const handleStartSwipe = event => {
 
   function handleMove(event) {
     const currentX = event.pageX
-    const deltaX = currentX - startX
+
+    deltaX = currentX - startX
+
     const opacity = Math.abs(deltaX) / 100
+    const angleRotation = deltaX / 15
     const isSwipeRight = deltaX > 0
 
     isAnimation = true
 
-    currentCard.style.transform = `translateX(${deltaX}px) rotateZ(${
-      deltaX / 15
-    }deg)`
+    currentCard.style.transform = `translateX(${deltaX}px) rotateZ(${angleRotation}deg)`
 
     const choiceElm = isSwipeRight
       ? currentCard.querySelector('.choice.like')
@@ -34,28 +35,30 @@ const handleStartSwipe = event => {
     choiceElm.style.opacity = opacity
   }
 
-  function handleCardRelease(event) {
-    const currentX = event.pageX
-    const deltaX = currentX - startX
-    const madeDecision = Math.abs(deltaX) > DECISION_THRESHOLD
+  function handleCardRelease() {
+    const isSwipeMade = Math.abs(deltaX) > DECISION_THRESHOLD
     const goRight = deltaX > 0
 
-    if (madeDecision) {
+    if (isSwipeMade) {
       currentCard.style.transform = ''
       currentCard.classList.add(goRight ? 'go__right' : 'go__left')
-
-      currentCard.addEventListener('transitionend', () => {
-        console.log('transition end 1')
-        currentCard.remove()
-      })
     } else {
-      currentCard.style.transition = `transform 0.3s`
-      currentCard.style.transform = `translateX(0)`
+      currentCard.style.transform = ''
+      currentCard.classList.add('reset')
+
+      currentCard.querySelectorAll('.choice').forEach(choice => {
+        choice.style.opacity = 0
+      })
     }
 
     currentCard.addEventListener('transitionend', () => {
+      if (isSwipeMade) {
+        currentCard.remove()
+      } else {
+        currentCard.classList.remove('reset')
+      }
+
       isAnimation = false
-      console.log('transition end 2')
     })
 
     currentCard.removeEventListener('mousemove', handleMove)
