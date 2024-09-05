@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <title>01-Tinder Swiper</title>
+  </head>
+  <body>
+    <div class="container shadow">
+      <main>
+        <section>
+          <header class="tinder__header">
+            <img
+              class="tinder__logo"
+              src="./assets/tinder-logo.webp"
+              alt="Tinder Logo"
+            />
+            <h2 class="tinder__title">tinder</h2>
+          </header>
+          <div class="cards">
+            <article>
+              <img src="./assets/photos/2.webp" alt="Alex, 25, brown hair" />
+              <h2>Alex <span>25</span></h2>
+              <div class="choice like">LIKE</div>
+              <div class="choice nope">NOPE</div>
+            </article>
+            <article>
+              <img src="./assets/photos/1.webp" alt="Leila, 27, red hair" />
+              <h2>Leila <span>27</span></h2>
+              <div class="choice like">LIKE</div>
+              <div class="choice nope">NOPE</div>
+            </article>
+            <span>
+              No hay más personas cerca de ti...<br />
+              Vuelve a intentarlo más tarde
+            </span>
+          </div>
+          <footer>
+            <button class="is__undo" aria-label="undo"></button>
+            <button class="is__remove is__big" aria-label="remove"></button>
+            <button class="is__star" aria-label="star"></button>
+            <button class="is__fav is__big" aria-label="favorite"></button>
+            <button class="is__zap" aria-label="zap"></button>
+          </footer>
+        </section>
+      </main>
+    </div>
+  </body>
+  <script src="./js/index.js"></script>
+</html>
